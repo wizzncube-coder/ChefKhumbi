@@ -140,9 +140,72 @@
         }
         #chat-messages::-webkit-scrollbar { width: 4px; }
         #chat-messages::-webkit-scrollbar-thumb { background: #d4af37; border-radius: 4px; border: none; }
+
+        .draw-path {
+            stroke-dasharray: 150;
+            stroke-dashoffset: 150;
+            animation: drawSVG 1.5s ease-in-out forwards;
+        }
+        @keyframes drawSVG {
+            to { stroke-dashoffset: 0; }
+        }
+        
+        .steam {
+            opacity: 0;
+            animation: riseSteam 2s ease-in-out infinite;
+        }
+        @keyframes riseSteam {
+            0% { opacity: 0; transform: translateY(4px); }
+            50% { opacity: 0.8; }
+            100% { opacity: 0; transform: translateY(-4px); }
+        }
+        
+        .preloader-text span {
+            opacity: 0;
+            transform: translateY(10px);
+            animation: fadeUpLetter 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        }
+        @keyframes fadeUpLetter {
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
 <body class="font-sans antialiased text-gray-300 relative">
+
+    <div id="preloader" class="fixed inset-0 bg-darker z-[10000] flex flex-col items-center justify-center transition-opacity duration-1000">
+        <!-- Creative Meal/Burger SVG Drawing -->
+        <svg class="w-24 h-24 md:w-32 md:h-32 mb-8 text-gold drop-shadow-[0_0_15px_rgba(212,175,55,0.4)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+            <!-- Steam -->
+            <path class="steam" style="animation-delay: 0.2s;" d="M9 5c0-2-1.5-3-1.5-5" />
+            <path class="steam" style="animation-delay: 0.9s;" d="M15 5c0-2 1.5-3 1.5-5" />
+            <!-- Top Bun -->
+            <path class="draw-path" style="animation-delay: 0.2s;" d="M4 11c0-4.418 3.582-8 8-8s8 3.582 8 8" />
+            <!-- Lettuce -->
+            <path class="draw-path" style="animation-delay: 0.6s;" d="M2 13 Q 4 11 6 13 T 10 13 T 14 13 T 18 13 T 22 13" />
+            <!-- Patty -->
+            <rect class="draw-path" style="animation-delay: 1.0s;" x="4" y="15" width="16" height="3" rx="1.5" />
+            <!-- Bottom Bun -->
+            <path class="draw-path" style="animation-delay: 1.4s;" d="M5 20h14c0 1.657-1.343 3-3 3H8c-1.657 0-3-1.343-3-3z" />
+        </svg>
+        
+        <!-- Fading Letters -->
+        <div class="preloader-text font-serif text-2xl md:text-4xl font-bold tracking-[0.4em] uppercase text-white flex flex-wrap justify-center gap-x-3 md:gap-x-5">
+            <div class="flex">
+                <span style="animation-delay: 1.6s">C</span>
+                <span style="animation-delay: 1.7s">H</span>
+                <span style="animation-delay: 1.8s">E</span>
+                <span style="animation-delay: 1.9s">F</span>
+            </div>
+            <div class="flex">
+                <span style="animation-delay: 2.2s" class="text-gold">K</span>
+                <span style="animation-delay: 2.3s" class="text-gold">H</span>
+                <span style="animation-delay: 2.4s" class="text-gold">U</span>
+                <span style="animation-delay: 2.5s" class="text-gold">M</span>
+                <span style="animation-delay: 2.6s" class="text-gold">B</span>
+                <span style="animation-delay: 2.7s" class="text-gold">I</span>
+            </div>
+        </div>
+    </div>
 
     <!-- Ambient Background Blobs -->
     <div class="blob bg-gold w-96 h-96 rounded-full top-0 left-[-10%] opacity-20"></div>
@@ -663,6 +726,20 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            const preloader = document.getElementById('preloader');
+            
+            // Allow 3.5 seconds for the SVG drawing and letter fading to complete
+            setTimeout(() => {
+                preloader.style.opacity = '0'; // Trigger the CSS fade out
+                
+                // Wait for the CSS fade transition (1000ms) to finish before removing from flow
+                setTimeout(() => {
+                    preloader.style.display = 'none';
+                    // Re-trigger scroll reveal in case elements were hidden during preloader
+                    window.dispatchEvent(new Event('scroll'));
+                }, 1000); 
+            }, 3500);
+
             // Mobile Menu Logic
             const btn = document.getElementById('mobile-menu-btn');
             const menu = document.getElementById('mobile-menu');
