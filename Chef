@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chef Khumbulani Mpofu | Premium Culinary Portfolio</title>
+    
+    <!-- Premium Fonts: Playfair Display for elegant headings, Montserrat for clean body text -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['Montserrat', 'sans-serif'],
+                    },
+                    colors: {
+                        dark: '#0a0a0a',
+                        darker: '#050505',
+                        surface: '#171717',
+                        gold: {
+                            DEFAULT: '#d4af37',
+                            light: '#f3e5ab',
+                            dark: '#aa8c2c'
+                        }
+                    },
+                    backgroundImage: {
+                        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body {
+            background-color: #050505;
+            color: #f3f4f6;
+            overflow-x: hidden;
+        }
+
+        /* Floating Animations */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+        @keyframes float-subtle {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(1deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+        @keyframes blob {
+            0% { transform: translate(0px, 0px) scale(1); }
+            33% { transform: translate(30px, -50px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+            100% { transform: translate(0px, 0px) scale(1); }
+        }
+
+        .float { animation: float 6s ease-in-out infinite; }
+        .float-delayed { animation: float 6s ease-in-out infinite; animation-delay: 3s; }
+        .float-subtle { animation: float-subtle 8s ease-in-out infinite; }
+
+        .blob {
+            position: absolute;
+            filter: blur(80px);
+            z-index: 0;
+            opacity: 0.4;
+            animation: blob 10s infinite alternate;
+        }
+
+        /* Glassmorphism */
+        .glass {
+            background: rgba(23, 23, 23, 0.4);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+        .glass-gold {
+            background: rgba(212, 175, 55, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        /* Scroll Reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 1s cubic-bezier(0.5, 0, 0, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .reveal-left { transform: translateX(-50px); }
+        .reveal-right { transform: translateX(50px); }
+        .reveal-left.active, .reveal-right.active { transform: translateX(0); }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: #050505; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 5px; border: 2px solid #050505; }
+        ::-webkit-scrollbar-thumb:hover { background: #d4af37; }
+
+        /* Image Object Fit Utility */
+        .img-cover { object-fit: cover; object-position: center; }
+        
+        /* AI Chat Widget Styles */
+        .chat-bubble {
+            animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            transform-origin: bottom right;
+        }
+        @keyframes popIn {
+            0% { opacity: 0; transform: scale(0.5); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+        .typing-indicator span {
+            animation: blink 1.4s infinite both;
+            height: 6px;
+            width: 6px;
+            background: #d4af37;
+            border-radius: 50%;
+            display: inline-block;
+            margin: 0 1px;
+        }
+        .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+        .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes blink {
+            0% { opacity: 0.2; transform: scale(0.8); }
+            20% { opacity: 1; transform: scale(1.2); }
+            100% { opacity: 0.2; transform: scale(0.8); }
+        }
+        #chat-messages::-webkit-scrollbar { width: 4px; }
+        #chat-messages::-webkit-scrollbar-thumb { background: #d4af37; border-radius: 4px; border: none; }
+    </style>
+</head>
+<body class="font-sans antialiased text-gray-300 relative">
+
+    <!-- Ambient Background Blobs -->
+    <div class="blob bg-gold w-96 h-96 rounded-full top-0 left-[-10%] opacity-20"></div>
+    <div class="blob bg-orange-900 w-96 h-96 rounded-full top-[40%] right-[-10%] opacity-20" style="animation-delay: 2s;"></div>
+    <div class="blob bg-gold w-80 h-80 rounded-full bottom-0 left-[20%] opacity-10" style="animation-delay: 4s;"></div>
+
+    <nav class="fixed w-full z-50 transition-all duration-500 py-6" id="navbar">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="glass rounded-full px-6 py-3 flex justify-between items-center transition-all duration-300" id="nav-container">
+                <a href="#" class="font-serif text-2xl font-bold text-white tracking-widest uppercase flex items-center gap-2">
+                    <span class="text-gold">Chef</span> Khumbi
+                </a>
+                
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="#about" class="text-xs tracking-[0.2em] uppercase text-gray-400 hover:text-gold transition-colors">About</a>
+                    <a href="#experience" class="text-xs tracking-[0.2em] uppercase text-gray-400 hover:text-gold transition-colors">Experience</a>
+                    <a href="#skills" class="text-xs tracking-[0.2em] uppercase text-gray-400 hover:text-gold transition-colors">Skills</a>
+                    <a href="#gallery" class="text-xs tracking-[0.2em] uppercase text-gray-400 hover:text-gold transition-colors">Gallery</a>
+                    <a href="#contact" class="px-6 py-2 border border-gold text-gold hover:bg-gold hover:text-darker transition-all duration-300 text-xs uppercase tracking-[0.2em] rounded-full">Book Now</a>
+                </div>
+                
+                <button id="mobile-menu-btn" class="md:hidden text-gold focus:outline-none">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden absolute top-full left-0 w-full px-6 mt-2 z-40">
+            <div class="glass rounded-2xl p-6 flex flex-col space-y-4 text-center">
+                <a href="#about" class="text-sm tracking-widest uppercase text-white hover:text-gold">About</a>
+                <a href="#experience" class="text-sm tracking-widest uppercase text-white hover:text-gold">Experience</a>
+                <a href="#skills" class="text-sm tracking-widest uppercase text-white hover:text-gold">Skills</a>
+                <a href="#gallery" class="text-sm tracking-widest uppercase text-white hover:text-gold">Gallery</a>
+                <a href="#contact" class="text-sm tracking-widest uppercase text-gold font-bold">Book Now</a>
+            </div>
+        </div>
+    </nav>
+
+    <section id="home" class="relative min-h-screen flex items-center pt-24 pb-12 z-10">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 w-full">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                
+                <!-- Hero Text -->
+                <div class="reveal reveal-left z-20 order-2 lg:order-1">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="h-[1px] w-12 bg-gold"></div>
+                        <span class="text-gold tracking-[0.3em] uppercase text-xs font-semibold">Culinary Artist</span>
+                    </div>
+                    <h1 class="text-5xl md:text-7xl lg:text-8xl font-serif font-bold text-white leading-[1.1] mb-6">
+                        Passion<br/>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-gold to-yellow-200 italic font-light">On A Plate.</span>
+                    </h1>
+                    <p class="text-gray-400 mb-10 max-w-lg text-sm md:text-base leading-relaxed font-light">
+                        Results-driven culinary professional combining hands-on food preparation expertise with strong capabilities in commercial kitchen operations.
+                    </p>
+                    <div class="flex flex-wrap gap-6 items-center">
+                        <a href="#contact" class="bg-gold text-darker px-8 py-4 uppercase tracking-[0.2em] text-xs font-bold rounded-full hover:bg-white transition-all duration-300 shadow-[0_0_20px_rgba(212,175,55,0.4)] hover:shadow-[0_0_30px_rgba(255,255,255,0.6)] transform hover:-translate-y-1">
+                            Hire Me
+                        </a>
+                        <a href="#about" class="text-white text-xs uppercase tracking-[0.2em] hover:text-gold transition-colors flex items-center gap-2 group">
+                            Discover More 
+                            <i class="fas fa-arrow-right transform group-hover:translate-x-2 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Hero Image (Floating) -->
+                <div class="relative z-10 order-1 lg:order-2 reveal reveal-right flex justify-center lg:justify-end mt-12 lg:mt-0">
+                    <!-- Decorative background element -->
+                    <div class="absolute inset-0 bg-gold rounded-full blur-[100px] opacity-20 mix-blend-screen"></div>
+                    
+                    <div class="relative w-full max-w-md float">
+                        <!-- Glass frame behind image -->
+                        <div class="absolute -inset-4 lg:-inset-8 glass-gold rounded-t-[100px] rounded-b-3xl transform rotate-3 z-0"></div>
+                        
+                        <!-- Main Image -->
+                        <img src="khum41.jpg" alt="Chef Khumbulani Mpofu" class="relative z-10 rounded-t-[80px] rounded-b-2xl shadow-2xl img-cover h-[500px] lg:h-[650px] w-full border border-white/10">
+                        
+                        <!-- Floating Badge -->
+                        <div class="absolute -bottom-6 -left-6 lg:-left-12 glass rounded-2xl p-4 flex items-center gap-4 z-20 float-delayed">
+                            <div class="bg-gold/20 p-3 rounded-full text-gold">
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <div>
+                                <p class="text-white font-serif font-bold text-lg">6+ Years</p>
+                                <p class="text-xs text-gray-400 uppercase tracking-widest">Experience</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="relative py-24 z-10 bg-darker/50 border-y border-white/5">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+                
+                <!-- About Info & Profile Pic -->
+                <div class="lg:col-span-5 reveal">
+                    <div class="relative mb-10 float-subtle">
+                        <div class="absolute inset-0 bg-gold blur-2xl opacity-10 rounded-full"></div>
+                        <img src="khum.jpg" alt="Chef Khumbi at Buffet" class="relative z-10 rounded-2xl shadow-2xl img-cover w-full h-[400px] border border-white/10 grayscale hover:grayscale-0 transition-all duration-700">
+                        <!-- Floating culinary icon -->
+                        <div class="absolute -top-5 -right-5 bg-gold text-darker w-16 h-16 rounded-full flex items-center justify-center text-2xl shadow-lg z-20 float">
+                            <i class="fas fa-utensils"></i>
+                        </div>
+                    </div>
+                    
+                    <h2 class="text-3xl md:text-4xl font-serif font-bold text-white mb-6 flex items-center gap-4">
+                        Behind the Apron
+                        <span class="h-[1px] flex-1 bg-gradient-to-r from-gold to-transparent"></span>
+                    </h2>
+                    <p class="text-gray-400 font-light mb-8 leading-relaxed text-sm">
+                        Adept at maintaining strict quality assurance and safety protocols in high-pressure environments. Eager to bring a comprehensive understanding of both culinary execution and galley efficiency to premier dining establishments.
+                    </p>
+                    
+                    <div class="glass p-6 rounded-2xl space-y-4">
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 rounded-full bg-gold/10 flex items-center justify-center text-gold"><i class="fas fa-map-marker-alt"></i></div>
+                            <div>
+                                <p class="text-xs text-gray-500 uppercase tracking-widest">Location</p>
+                                <p class="text-sm text-white">Polokwane, South Africa (Zimbabwean)</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 rounded-full bg-gold/10 flex items-center justify-center text-gold"><i class="fas fa-language"></i></div>
+                            <div>
+                                <p class="text-xs text-gray-500 uppercase tracking-widest">Languages</p>
+                                <p class="text-sm text-white">English, IsiNdebele, Shona</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 rounded-full bg-gold/10 flex items-center justify-center text-gold"><i class="fas fa-passport"></i></div>
+                            <div>
+                                <p class="text-xs text-gray-500 uppercase tracking-widest">Status</p>
+                                <p class="text-sm text-white">Passport Available / Willing to Relocate</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Media / Interview Video in floating container -->
+                <div class="lg:col-span-7 reveal reveal-right flex flex-col items-center justify-center">
+                    <div class="text-center mb-8">
+                        <h3 class="text-2xl font-serif font-bold text-white mb-2">In the Spotlight</h3>
+                        <p class="text-gold text-xs tracking-[0.2em] uppercase">Luzibo Radio Interview</p>
+                    </div>
+                    
+                    <div class="glass p-4 rounded-[2rem] w-full max-w-sm mx-auto relative float-delayed shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+                        <!-- Decorative corners -->
+                        <div class="absolute -top-2 -left-2 w-6 h-6 border-t-2 border-l-2 border-gold"></div>
+                        <div class="absolute -bottom-2 -right-2 w-6 h-6 border-b-2 border-r-2 border-gold"></div>
+                        
+                        <div class="rounded-[1.5rem] overflow-hidden bg-black flex justify-center relative z-10 w-full" style="aspect-ratio: 9/16;">
+                            <iframe 
+                                src="https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Freel%2F1854886599028444&show_text=false&width=315" 
+                                class="w-full h-full object-cover"
+                                style="border:none;overflow:hidden;" 
+                                scrolling="no" 
+                                frameborder="0" 
+                                allowfullscreen="true" 
+                                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                                title="Chef Khumbi Luzibo Radio Interview">
+                            </iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="experience" class="relative py-24 z-10">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="text-center mb-20 reveal">
+                <span class="text-gold tracking-[0.3em] uppercase text-xs font-semibold block mb-2">Career Path</span>
+                <h2 class="text-4xl md:text-5xl font-serif font-bold text-white">Professional Journey</h2>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+                <!-- Timeline -->
+                <div class="reveal reveal-left relative">
+                    <!-- Timeline Line -->
+                    <div class="absolute left-6 top-2 bottom-2 w-[1px] bg-gradient-to-b from-gold via-gold/50 to-transparent"></div>
+                    
+                    <div class="space-y-12">
+                        <!-- Role 1 -->
+                        <div class="relative pl-16">
+                            <!-- Node -->
+                            <div class="absolute left-[20px] top-1 w-4 h-4 rounded-full bg-darker border-2 border-gold shadow-[0_0_10px_rgba(212,175,55,0.8)] z-10"></div>
+                            
+                            <div class="glass p-8 rounded-2xl group hover:border-gold/50 transition-colors duration-500">
+                                <span class="text-xs text-gold tracking-widest uppercase mb-2 block">Jan 2025 - May 2026</span>
+                                <h4 class="text-2xl font-serif font-bold text-white mb-1">Sous Chef</h4>
+                                <p class="text-gray-400 text-sm mb-6 font-medium">Atrium Boutique Hotel</p>
+                                
+                                <ul class="space-y-3 text-sm text-gray-400 font-light list-none">
+                                    <li class="flex items-start"><i class="fas fa-check text-gold text-xs mt-1 mr-3"></i> Advanced culinary preparation across multiple cuisines.</li>
+                                    <li class="flex items-start"><i class="fas fa-check text-gold text-xs mt-1 mr-3"></i> Strong leadership in high-volume environments.</li>
+                                    <li class="flex items-start"><i class="fas fa-check text-gold text-xs mt-1 mr-3"></i> Menu planning and creative food presentation.</li>
+                                    <li class="flex items-start"><i class="fas fa-check text-gold text-xs mt-1 mr-3"></i> Inventory control, stock rotation, and cost management.</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <!-- Role 2 -->
+                        <div class="relative pl-16">
+                            <!-- Node -->
+                            <div class="absolute left-[20px] top-1 w-4 h-4 rounded-full bg-darker border-2 border-gray-500 z-10"></div>
+                            
+                            <div class="glass p-8 rounded-2xl group hover:border-gold/50 transition-colors duration-500">
+                                <span class="text-xs text-gray-400 tracking-widest uppercase mb-2 block">Feb 2020 - Dec 2024</span>
+                                <h4 class="text-2xl font-serif font-bold text-white mb-1">Demi Chef De Partie</h4>
+                                <p class="text-gray-400 text-sm mb-6 font-medium">The Glen Boutique Hotel</p>
+                                
+                                <ul class="space-y-3 text-sm text-gray-400 font-light list-none">
+                                    <li class="flex items-start"><i class="fas fa-check text-gold text-xs mt-1 mr-3"></i> Developed and updated breakfast/lunch menus.</li>
+                                    <li class="flex items-start"><i class="fas fa-check text-gold text-xs mt-1 mr-3"></i> Oversaw dish preparation (25-item menu).</li>
+                                    <li class="flex items-start"><i class="fas fa-check text-gold text-xs mt-1 mr-3"></i> Maintained high levels of food safety and hygiene.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Floating Images Context -->
+                <div class="hidden lg:flex flex-col justify-center relative reveal reveal-right min-h-[600px]">
+                    <img src="khum3.jpg" alt="Chef Cooking" class="absolute top-10 right-0 w-3/4 h-80 img-cover rounded-2xl shadow-2xl border border-white/10 float glass p-2">
+                    <img src="khum6.jpg" alt="Chef Prepping" class="absolute bottom-10 left-0 w-2/3 h-72 img-cover rounded-2xl shadow-2xl border border-white/10 float-delayed glass p-2 z-20">
+                    
+                    <!-- Education overlay box -->
+                    <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-30 w-full max-w-sm">
+                        <div class="glass-gold p-6 rounded-2xl backdrop-blur-md shadow-2xl border border-gold/30">
+                            <h3 class="text-lg font-serif font-bold text-white mb-4 flex items-center gap-2">
+                                <i class="fas fa-graduation-cap text-gold"></i> Education
+                            </h3>
+                            <div class="mb-4">
+                                <p class="text-sm font-bold text-white">Certificate Of Advanced Culinary Skills</p>
+                                <p class="text-xs text-gray-400">Blueberry Hospitality Training (2019)</p>
+                            </div>
+                            <div>
+                                <p class="text-sm font-bold text-white">Ordinary Level</p>
+                                <p class="text-xs text-gray-400">Selous High School (2008)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" class="relative py-24 z-10 bg-darker/80 border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="text-center mb-20 reveal">
+                <span class="text-gold tracking-[0.3em] uppercase text-xs font-semibold block mb-2">Expertise</span>
+                <h2 class="text-4xl md:text-5xl font-serif font-bold text-white">Core Competencies</h2>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 reveal">
+                <!-- Skill Card -->
+                <div class="glass p-8 rounded-2xl hover:-translate-y-2 transition-transform duration-300 group">
+                    <div class="w-14 h-14 rounded-full bg-gold/10 flex items-center justify-center mb-6 group-hover:bg-gold transition-colors duration-300">
+                        <i class="fas fa-fire text-2xl text-gold group-hover:text-darker transition-colors"></i>
+                    </div>
+                    <h4 class="font-serif font-bold text-xl text-white mb-3">Advanced Cooking</h4>
+                    <p class="text-gray-400 text-sm font-light leading-relaxed">Expertise in international cuisines, sauce creation, flavor balancing, and advanced preparation techniques.</p>
+                </div>
+                <!-- Skill Card -->
+                <div class="glass p-8 rounded-2xl hover:-translate-y-2 transition-transform duration-300 group">
+                    <div class="w-14 h-14 rounded-full bg-gold/10 flex items-center justify-center mb-6 group-hover:bg-gold transition-colors duration-300">
+                        <i class="fas fa-utensils text-2xl text-gold group-hover:text-darker transition-colors"></i>
+                    </div>
+                    <h4 class="font-serif font-bold text-xl text-white mb-3">Menu & Presentation</h4>
+                    <p class="text-gray-400 text-sm font-light leading-relaxed">Creative menu planning, recipe development, and meticulous plating presentation with strong attention to detail.</p>
+                </div>
+                <!-- Skill Card -->
+                <div class="glass p-8 rounded-2xl hover:-translate-y-2 transition-transform duration-300 group">
+                    <div class="w-14 h-14 rounded-full bg-gold/10 flex items-center justify-center mb-6 group-hover:bg-gold transition-colors duration-300">
+                        <i class="fas fa-clipboard-check text-2xl text-gold group-hover:text-darker transition-colors"></i>
+                    </div>
+                    <h4 class="font-serif font-bold text-xl text-white mb-3">Kitchen Management</h4>
+                    <p class="text-gray-400 text-sm font-light leading-relaxed">Stock rotation, inventory management, cost control, and efficient portion management.</p>
+                </div>
+                <!-- Skill Card -->
+                <div class="glass p-8 rounded-2xl hover:-translate-y-2 transition-transform duration-300 group">
+                    <div class="w-14 h-14 rounded-full bg-gold/10 flex items-center justify-center mb-6 group-hover:bg-gold transition-colors duration-300">
+                        <i class="fas fa-shield-virus text-2xl text-gold group-hover:text-darker transition-colors"></i>
+                    </div>
+                    <h4 class="font-serif font-bold text-xl text-white mb-3">Safety & Hygiene</h4>
+                    <p class="text-gray-400 text-sm font-light leading-relaxed">Strict adherence to food safety, hygiene protocols, and continuous equipment maintenance.</p>
+                </div>
+                <!-- Skill Card -->
+                <div class="glass p-8 rounded-2xl hover:-translate-y-2 transition-transform duration-300 group">
+                    <div class="w-14 h-14 rounded-full bg-gold/10 flex items-center justify-center mb-6 group-hover:bg-gold transition-colors duration-300">
+                        <i class="fas fa-users text-2xl text-gold group-hover:text-darker transition-colors"></i>
+                    </div>
+                    <h4 class="font-serif font-bold text-xl text-white mb-3">Team Leadership</h4>
+                    <p class="text-gray-400 text-sm font-light leading-relaxed">Team supervision, staff training, and fostering a collaborative environment in high-stress settings.</p>
+                </div>
+                <!-- Skill Card -->
+                <div class="glass p-8 rounded-2xl hover:-translate-y-2 transition-transform duration-300 group">
+                    <div class="w-14 h-14 rounded-full bg-gold/10 flex items-center justify-center mb-6 group-hover:bg-gold transition-colors duration-300">
+                        <i class="fas fa-stopwatch text-2xl text-gold group-hover:text-darker transition-colors"></i>
+                    </div>
+                    <h4 class="font-serif font-bold text-xl text-white mb-3">Execution</h4>
+                    <p class="text-gray-400 text-sm font-light leading-relaxed">Exceptional time management, multitasking under pressure, ensuring quality control and consistency.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="gallery" class="relative py-24 z-10">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16 reveal">
+                <div>
+                    <span class="text-gold tracking-[0.3em] uppercase text-xs font-semibold block mb-2">Portfolio</span>
+                    <h2 class="text-4xl md:text-5xl font-serif font-bold text-white">Culinary Showcase</h2>
+                </div>
+                <p class="text-gray-400 max-w-md font-light text-sm mt-4 md:mt-0">
+                    A visual taste of my creations, highlighting precision, color, and exquisite flavor profiles.
+                </p>
+            </div>
+            
+            <!-- Masonry-style Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 reveal">
+                
+                <!-- Main Featured Plating -->
+                <div class="lg:col-span-2 relative group rounded-2xl overflow-hidden h-[400px] border border-white/10 shadow-2xl">
+                    <img src="khum11.jpg" alt="Chef plating" class="w-full h-full img-cover transform group-hover:scale-110 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-darker via-darker/50 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-300"></div>
+                    <div class="absolute bottom-0 left-0 p-8 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                        <p class="text-gold text-xs tracking-widest uppercase mb-1">Precision</p>
+                        <h3 class="text-2xl font-serif text-white">Plating Excellence</h3>
+                    </div>
+                </div>
+
+                <!-- Vertical Food Item -->
+                <div class="relative group rounded-2xl overflow-hidden h-[400px] border border-white/10 shadow-2xl float-subtle">
+                    <img src="khum8.jpg" alt="Gourmet Wrap" class="w-full h-full img-cover transform group-hover:scale-110 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-darker to-transparent opacity-60"></div>
+                    <div class="absolute bottom-0 left-0 p-6">
+                        <h3 class="text-xl font-serif text-white">Bistro Style</h3>
+                    </div>
+                </div>
+
+                <!-- Square Image -->
+                <div class="relative group rounded-2xl overflow-hidden h-[300px] border border-white/10 shadow-2xl float">
+                    <img src="khum4.jpg" alt="Outdoor Serving" class="w-full h-full img-cover transform group-hover:scale-110 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-darker to-transparent opacity-60"></div>
+                    <div class="absolute bottom-0 left-0 p-6">
+                        <h3 class="text-xl font-serif text-white">Al Fresco Dining</h3>
+                    </div>
+                </div>
+
+                <!-- Horizontal Image -->
+                <div class="lg:col-span-2 relative group rounded-2xl overflow-hidden h-[300px] border border-white/10 shadow-2xl">
+                    <img src="khum7.jpg" alt="Plating multiple dishes" class="w-full h-full img-cover transform group-hover:scale-110 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-darker to-transparent opacity-60"></div>
+                    <div class="absolute bottom-0 left-0 p-6">
+                        <h3 class="text-xl font-serif text-white">High Volume Precision</h3>
+                    </div>
+                </div>
+
+                <!-- Square Image -->
+                <div class="relative group rounded-2xl overflow-hidden h-[300px] border border-white/10 shadow-2xl float-delayed">
+                    <img src="khum5.jpg" alt="Eggs Benedict" class="w-full h-full img-cover transform group-hover:scale-110 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-darker to-transparent opacity-60"></div>
+                    <div class="absolute bottom-0 left-0 p-6">
+                        <h3 class="text-xl font-serif text-white">Breakfast Classics</h3>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact" class="relative z-10 border-t border-white/10 bg-darker pt-20 pb-10 mt-12 overflow-hidden">
+        <!-- Background element -->
+        <div class="absolute bottom-0 right-0 w-[500px] h-[500px] bg-gold rounded-full blur-[120px] opacity-10 pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+            <div class="glass p-12 rounded-3xl mb-16 transform -translate-y-1/4 absolute left-6 right-6 lg:left-8 lg:right-8 -top-16 shadow-[0_30px_60px_rgba(0,0,0,0.8)] border-gold/20 flex flex-col md:flex-row justify-between items-center gap-8">
+                <div>
+                    <h3 class="text-3xl font-serif font-bold text-white mb-2">Ready to elevate your menu?</h3>
+                    <p class="text-gray-400 font-light">Available for roles in boutique hotels and luxury cruise lines.</p>
+                </div>
+                <a href="mailto:khumbulanimpofu62@gmail.com" class="bg-gold text-darker px-8 py-4 rounded-full uppercase tracking-[0.2em] text-xs font-bold hover:bg-white transition-all shadow-[0_0_20px_rgba(212,175,55,0.4)] whitespace-nowrap">
+                    Contact Me
+                </a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 pt-24 mb-16 border-b border-white/10 pb-16">
+                <!-- Brand -->
+                <div>
+                    <a href="#" class="font-serif text-3xl font-bold text-white tracking-widest uppercase flex items-center gap-2 mb-6">
+                        <span class="text-gold">Chef</span> Khumbi
+                    </a>
+                    <p class="text-sm text-gray-400 font-light leading-relaxed">
+                        Bringing passion, efficiency, and exquisite taste to every kitchen globally.
+                    </p>
+                </div>
+                
+                <!-- Contact Details -->
+                <div>
+                    <h4 class="text-xs font-bold text-gold mb-6 uppercase tracking-[0.2em]">Direct Contact</h4>
+                    <ul class="space-y-4 text-sm font-light text-gray-400">
+                        <li>
+                            <a href="mailto:khumbulanimpofu62@gmail.com" class="hover:text-gold transition-colors flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center"><i class="fas fa-envelope text-gold"></i></div>
+                                khumbulanimpofu62@gmail.com
+                            </a>
+                        </li>
+                        <li>
+                            <a href="tel:+27787732433" class="hover:text-gold transition-colors flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center"><i class="fas fa-phone-alt text-gold"></i></div>
+                                +27 78 773 2433
+                            </a>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center"><i class="fas fa-map-marker-alt text-gold"></i></div>
+                            Polokwane, South Africa
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- References -->
+                <div>
+                    <h4 class="text-xs font-bold text-gold mb-6 uppercase tracking-[0.2em]">Professional Reference</h4>
+                    <div class="bg-white/5 p-5 rounded-2xl border border-white/5 text-sm">
+                        <p class="font-serif font-bold text-white text-lg mb-1">Ngonie Munyayi</p>
+                        <p class="text-gray-400 mb-3 text-xs uppercase tracking-widest">HR Manager, The Glen Hotel</p>
+                        <a href="mailto:info@glenhotel.co.za" class="block text-gray-400 hover:text-gold mb-2"><i class="fas fa-envelope mr-2 text-gold"></i> info@glenhotel.co.za</a>
+                        <a href="tel:+270214390086" class="block text-gray-400 hover:text-gold"><i class="fas fa-phone mr-2 text-gold"></i> +27 (0)21 439 0086</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Copyright -->
+            <div class="text-center text-xs text-gray-500 uppercase tracking-widest">
+                <p>&copy; <script>document.write(new Date().getFullYear())</script> Khumbulani Mpofu. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Virtual Chef Khumbi AI Chatbot -->
+    <div id="ai-chat-container" class="fixed bottom-6 right-6 z-50 flex flex-col items-end">
+        <!-- Chat Window -->
+        <div id="ai-chat-window" class="hidden glass-gold w-80 sm:w-96 rounded-2xl mb-4 overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.8)] border border-gold/30 flex-col transition-all duration-300 transform scale-95 opacity-0 origin-bottom-right">
+            <!-- Header -->
+            <div class="bg-darker/80 p-4 border-b border-gold/20 flex justify-between items-center backdrop-blur-md">
+                <div class="flex items-center gap-3">
+                    <div class="relative">
+                        <img src="khum41.jpg" alt="AI Avatar" class="w-10 h-10 rounded-full img-cover border border-gold">
+                        <div class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-darker"></div>
+                    </div>
+                    <div>
+                        <h4 class="text-white font-serif font-bold text-sm">Virtual Chef Khumbi</h4>
+                        <p class="text-gold text-[10px] uppercase tracking-widest">AI Assistant</p>
+                    </div>
+                </div>
+                <button id="close-chat" class="text-gray-400 hover:text-gold transition-colors focus:outline-none">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <!-- Messages Area -->
+            <div id="chat-messages" class="p-4 h-80 overflow-y-auto flex flex-col gap-4 bg-dark/50 backdrop-blur-sm">
+                <!-- Initial Greeting -->
+                <div class="flex flex-col items-start gap-1 chat-bubble">
+                    <div class="bg-darker text-sm text-gray-200 p-3 rounded-2xl rounded-tl-sm border border-white/5 shadow-md">
+                        Welcome! I'm Chef Khumbi's virtual assistant. Feel free to ask me about his culinary experience, signature dishes, or professional background.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Input Area -->
+            <div class="p-4 bg-darker/90 border-t border-gold/20 backdrop-blur-md">
+                <form id="chat-form" class="flex gap-2 relative">
+                    <input type="text" id="chat-input" placeholder="Ask the Chef..." class="w-full bg-surface text-white text-sm rounded-full py-3 pl-4 pr-12 focus:outline-none focus:ring-1 focus:ring-gold border border-white/10 placeholder-gray-500 transition-all">
+                    <button type="submit" class="absolute right-1 top-1 bottom-1 aspect-square bg-gold text-darker rounded-full flex items-center justify-center hover:bg-white transition-colors focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed" id="send-btn">
+                        <i class="fas fa-paper-plane text-sm"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Chat Toggle Button -->
+        <button id="chat-toggle" class="bg-gold text-darker w-16 h-16 rounded-full flex items-center justify-center text-2xl shadow-[0_0_20px_rgba(212,175,55,0.4)] hover:shadow-[0_0_30px_rgba(255,255,255,0.6)] transform hover:-translate-y-1 transition-all duration-300 float z-50 group focus:outline-none relative">
+            <i class="fas fa-comment-dots group-hover:hidden"></i>
+            <i class="fas fa-robot hidden group-hover:block"></i>
+            <!-- Notification Dot -->
+            <span class="absolute top-0 right-0 flex h-4 w-4">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-4 w-4 bg-red-500 border-2 border-gold"></span>
+            </span>
+        </button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Mobile Menu Logic
+            const btn = document.getElementById('mobile-menu-btn');
+            const menu = document.getElementById('mobile-menu');
+            const navContainer = document.getElementById('nav-container');
+
+            btn.addEventListener('click', () => {
+                menu.classList.toggle('hidden');
+            });
+
+            menu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => menu.classList.add('hidden'));
+            });
+
+            // Navbar background change on scroll
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    navContainer.classList.add('glass-gold');
+                    navContainer.classList.remove('glass');
+                } else {
+                    navContainer.classList.add('glass');
+                    navContainer.classList.remove('glass-gold');
+                }
+            });
+
+            // Scroll Reveal Logic with Intersection Observer
+            const revealElements = document.querySelectorAll('.reveal');
+            
+            const revealOptions = {
+                threshold: 0.1,
+                rootMargin: "0px 0px -50px 0px"
+            };
+
+            const revealOnScroll = new IntersectionObserver(function(entries, observer) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target); // Stop observing once revealed
+                    }
+                });
+            }, revealOptions);
+
+            revealElements.forEach(el => {
+                revealOnScroll.observe(el);
+            });
+            
+            // Trigger immediately for above-the-fold content
+            setTimeout(() => window.dispatchEvent(new Event('scroll')), 100);
+
+            // --- Gemini API Virtual Chef Logic ---
+            const chatToggleBtn = document.getElementById('chat-toggle');
+            const chatWindow = document.getElementById('ai-chat-window');
+            const closeChatBtn = document.getElementById('close-chat');
+            const chatForm = document.getElementById('chat-form');
+            const chatInput = document.getElementById('chat-input');
+            const chatMessages = document.getElementById('chat-messages');
+            const sendBtn = document.getElementById('send-btn');
+            
+            let isChatOpen = false;
+            let conversationHistory = [];
+
+            // System prompt grounding the AI in Chef Khumbi's CV
+            const systemInstruction = `You are a polite, professional, and enthusiastic AI virtual assistant representing Chef Khumbulani Mpofu (also known as Chef Khumbi) on his premium portfolio website. 
+            Your goal is to answer questions about his culinary expertise, professional experience, and booking availability.
+            
+            Key Information to use:
+            - **Personal:** He is a Zimbabwean culinary professional, currently based in Polokwane, South Africa. He has a passport and is willing to relocate.
+            - **Current/Recent Role:** Sous Chef at Atrium Boutique Hotel (Jan 2025 - May 2026). Responsibilities included advanced culinary preparation, leadership in high-volume environments, menu planning, and cost management.
+            - **Past Role:** Demi Chef De Partie at The Glen Boutique Hotel (Feb 2020 - Dec 2024). Responsibilities included developing menus, overseeing dish preparation (25-item menu), and strict food safety.
+            - **Education:** Certificate Of Advanced Culinary Skills from Blueberry Hospitality Training (2019). Ordinary Level from Selous High School (2008).
+            - **Skills:** Advanced cooking (international cuisines, sauces), menu planning, plating presentation, stock rotation, food safety (HACCP), team leadership, and multitasking under pressure.
+            - **Languages:** English, IsiNdebele, Shona.
+            - **Contact Info:** khumbulanimpofu62@gmail.com, +27 78 773 2433.
+            
+            Rules:
+            - Keep responses concise (1-3 short paragraphs max).
+            - Adopt a warm, hospitable, and high-end culinary tone.
+            - If asked for a recipe or cooking tip, provide a creative, sophisticated suggestion that aligns with fine dining or bistro style.
+            - Do not invent experience or roles not listed above.
+            - If you don't know the answer, politely suggest they contact Chef Khumbi directly via email.`;
+
+            // Toggle Chat Window
+            const toggleChat = () => {
+                isChatOpen = !isChatOpen;
+                if (isChatOpen) {
+                    chatWindow.classList.remove('hidden');
+                    // Small delay to allow display:block to apply before animating opacity/transform
+                    setTimeout(() => {
+                        chatWindow.classList.remove('scale-95', 'opacity-0');
+                        chatWindow.classList.add('scale-100', 'opacity-100');
+                        chatWindow.style.display = 'flex';
+                    }, 10);
+                    // Hide notification dot
+                    const notificationDot = chatToggleBtn.querySelector('.animate-ping')?.parentElement;
+                    if(notificationDot) notificationDot.style.display = 'none';
+                    chatInput.focus();
+                } else {
+                    chatWindow.classList.remove('scale-100', 'opacity-100');
+                    chatWindow.classList.add('scale-95', 'opacity-0');
+                    setTimeout(() => {
+                        chatWindow.classList.add('hidden');
+                        chatWindow.style.display = 'none';
+                    }, 300);
+                }
+            };
+
+            chatToggleBtn.addEventListener('click', toggleChat);
+            closeChatBtn.addEventListener('click', toggleChat);
+
+            // Fetch with Exponential Backoff
+            async function fetchWithRetry(url, options, retries = 3, delay = 1000) {
+                try {
+                    const response = await fetch(url, options);
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response;
+                } catch (error) {
+                    if (retries > 0) {
+                        console.warn(`Fetch failed, retrying in ${delay}ms... (${retries} retries left)`);
+                        await new Promise(res => setTimeout(res, delay));
+                        return fetchWithRetry(url, options, retries - 1, delay * 2);
+                    } else {
+                        throw error;
+                    }
+                }
+            }
+
+            // Append Message to UI
+            const appendMessage = (text, sender) => {
+                const msgDiv = document.createElement('div');
+                msgDiv.className = `flex flex-col gap-1 chat-bubble ${sender === 'user' ? 'items-end' : 'items-start'}`;
+                
+                const bubble = document.createElement('div');
+                if (sender === 'user') {
+                    bubble.className = 'bg-gold text-darker text-sm p-3 rounded-2xl rounded-tr-sm shadow-md font-medium max-w-[85%]';
+                } else {
+                    bubble.className = 'bg-darker text-sm text-gray-200 p-3 rounded-2xl rounded-tl-sm border border-white/5 shadow-md max-w-[90%] leading-relaxed';
+                    // Render basic markdown (bold text)
+                    text = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+                }
+                bubble.innerHTML = text;
+                
+                msgDiv.appendChild(bubble);
+                chatMessages.appendChild(msgDiv);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            };
+
+            // Show/Hide Typing Indicator
+            const toggleTypingIndicator = (show) => {
+                if (show) {
+                    const indicator = document.createElement('div');
+                    indicator.id = 'typing-indicator';
+                    indicator.className = 'flex flex-col items-start gap-1 chat-bubble';
+                    indicator.innerHTML = `
+                        <div class="bg-darker p-3 rounded-2xl rounded-tl-sm border border-white/5 shadow-md typing-indicator flex items-center h-10">
+                            <span></span><span></span><span></span>
+                        </div>
+                    `;
+                    chatMessages.appendChild(indicator);
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                } else {
+                    const indicator = document.getElementById('typing-indicator');
+                    if (indicator) indicator.remove();
+                }
+            };
+
+            // Handle Form Submission
+            chatForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const text = chatInput.value.trim();
+                if (!text) return;
+
+                // UI Updates
+                appendMessage(text, 'user');
+                chatInput.value = '';
+                chatInput.disabled = true;
+                sendBtn.disabled = true;
+                toggleTypingIndicator(true);
+
+                // Add to history
+                conversationHistory.push({ role: 'user', parts: [{ text: text }] });
+
+                // Call Gemini API
+                const apiKey = ""; // API key is handled automatically by the environment
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
+                
+                const payload = {
+                    contents: conversationHistory,
+                    systemInstruction: {
+                        parts: [{ text: systemInstruction }]
+                    }
+                };
+
+                try {
+                    const response = await fetchWithRetry(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    
+                    const result = await response.json();
+                    const candidate = result.candidates?.[0];
+                    
+                    toggleTypingIndicator(false);
+                    
+                    if (candidate && candidate.content?.parts?.[0]?.text) {
+                        const replyText = candidate.content.parts[0].text;
+                        appendMessage(replyText, 'model');
+                        // Add model reply to history
+                        conversationHistory.push({ role: 'model', parts: [{ text: replyText }] });
+                    } else {
+                        appendMessage("I apologize, but I am having trouble accessing the kitchen at the moment. Please try asking again later.", 'model');
+                    }
+                } catch (error) {
+                    console.error("Gemini API Error:", error);
+                    toggleTypingIndicator(false);
+                    appendMessage("Apologies, the culinary communication line is currently busy. Please feel free to reach out via the contact section.", 'model');
+                } finally {
+                    chatInput.disabled = false;
+                    sendBtn.disabled = false;
+                    chatInput.focus();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
