@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chef Khumbulani Mpofu | Premium Culinary Portfolio</title>
+    <title>Chef Khumbulani Mpofu | Head Chef Portfolio</title>
     
     <!-- Favicon and Social Media Preview (Open Graph) Meta Tags -->
     <link rel="icon" type="image/jpeg" href="khum41.jpg">
     <meta property="og:title" content="Chef Khumbulani Mpofu | Premium Culinary Portfolio">
     <meta property="og:description" content="Results-driven culinary professional combining hands-on food preparation expertise with strong capabilities in commercial kitchen operations.">
-    <meta property="og:image" content="khum41.jpg">
+    <meta property="og:image" content="https://chefkhumbi.vercel.app/khum41.jpg">
+    <meta property="og:url" content="https://chefkhumbi.vercel.app">
     <meta property="og:type" content="website">
     
     <!-- Premium Fonts: Playfair Display for elegant headings, Montserrat for clean body text -->
@@ -175,41 +176,58 @@
         @keyframes fadeUpLetter {
             to { opacity: 1; transform: translateY(0); }
         }
+        
+        /* Preloader Fallback & CSS Hiding */
+        @keyframes fadeOutAndHide {
+            0%, 85% { opacity: 1; visibility: visible; }
+            100% { opacity: 0; visibility: hidden; z-index: -100; pointer-events: none; }
+        }
+        #preloader {
+            position: fixed;
+            inset: 0;
+            background-color: #050505;
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            animation: fadeOutAndHide 3.2s ease-out forwards;
+        }
     </style>
 </head>
 <body class="font-sans antialiased text-gray-300 relative">
 
-    <div id="preloader" class="fixed inset-0 bg-darker z-[10000] flex flex-col items-center justify-center transition-opacity duration-1000">
+    <div id="preloader">
         <!-- Creative Meal/Burger SVG Drawing -->
         <svg class="w-24 h-24 md:w-32 md:h-32 mb-8 text-gold drop-shadow-[0_0_15px_rgba(212,175,55,0.4)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
             <!-- Steam -->
-            <path class="steam" style="animation-delay: 0.2s;" d="M9 5c0-2-1.5-3-1.5-5" />
-            <path class="steam" style="animation-delay: 0.9s;" d="M15 5c0-2 1.5-3 1.5-5" />
+            <path class="steam" style="animation-delay: 0.1s;" d="M9 5c0-2-1.5-3-1.5-5" />
+            <path class="steam" style="animation-delay: 0.5s;" d="M15 5c0-2 1.5-3 1.5-5" />
             <!-- Top Bun -->
-            <path class="draw-path" style="animation-delay: 0.2s;" d="M4 11c0-4.418 3.582-8 8-8s8 3.582 8 8" />
+            <path class="draw-path" style="animation-delay: 0.1s;" d="M4 11c0-4.418 3.582-8 8-8s8 3.582 8 8" />
             <!-- Lettuce -->
-            <path class="draw-path" style="animation-delay: 0.6s;" d="M2 13 Q 4 11 6 13 T 10 13 T 14 13 T 18 13 T 22 13" />
+            <path class="draw-path" style="animation-delay: 0.4s;" d="M2 13 Q 4 11 6 13 T 10 13 T 14 13 T 18 13 T 22 13" />
             <!-- Patty -->
-            <rect class="draw-path" style="animation-delay: 1.0s;" x="4" y="15" width="16" height="3" rx="1.5" />
+            <rect class="draw-path" style="animation-delay: 0.7s;" x="4" y="15" width="16" height="3" rx="1.5" />
             <!-- Bottom Bun -->
-            <path class="draw-path" style="animation-delay: 1.4s;" d="M5 20h14c0 1.657-1.343 3-3 3H8c-1.657 0-3-1.343-3-3z" />
+            <path class="draw-path" style="animation-delay: 1.0s;" d="M5 20h14c0 1.657-1.343 3-3 3H8c-1.657 0-3-1.343-3-3z" />
         </svg>
         
         <!-- Fading Letters -->
         <div class="preloader-text font-serif text-2xl md:text-4xl font-bold tracking-[0.4em] uppercase text-white flex flex-wrap justify-center gap-x-3 md:gap-x-5">
             <div class="flex">
-                <span style="animation-delay: 1.6s">C</span>
-                <span style="animation-delay: 1.7s">H</span>
-                <span style="animation-delay: 1.8s">E</span>
-                <span style="animation-delay: 1.9s">F</span>
+                <span style="animation-delay: 1.2s">C</span>
+                <span style="animation-delay: 1.3s">H</span>
+                <span style="animation-delay: 1.4s">E</span>
+                <span style="animation-delay: 1.5s">F</span>
             </div>
             <div class="flex">
-                <span style="animation-delay: 2.2s" class="text-gold">K</span>
-                <span style="animation-delay: 2.3s" class="text-gold">H</span>
-                <span style="animation-delay: 2.4s" class="text-gold">U</span>
-                <span style="animation-delay: 2.5s" class="text-gold">M</span>
-                <span style="animation-delay: 2.6s" class="text-gold">B</span>
-                <span style="animation-delay: 2.7s" class="text-gold">I</span>
+                <span style="animation-delay: 1.7s" class="text-gold">K</span>
+                <span style="animation-delay: 1.8s" class="text-gold">H</span>
+                <span style="animation-delay: 1.9s" class="text-gold">U</span>
+                <span style="animation-delay: 2.0s" class="text-gold">M</span>
+                <span style="animation-delay: 2.1s" class="text-gold">B</span>
+                <span style="animation-delay: 2.2s" class="text-gold">I</span>
             </div>
         </div>
     </div>
@@ -733,19 +751,12 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const preloader = document.getElementById('preloader');
-            
-            // Allow 3.5 seconds for the SVG drawing and letter fading to complete
+            // Failsafe Preloader removal and Scroll trigger
             setTimeout(() => {
-                preloader.style.opacity = '0'; // Trigger the CSS fade out
-                
-                // Wait for the CSS fade transition (1000ms) to finish before removing from flow
-                setTimeout(() => {
-                    preloader.style.display = 'none';
-                    // Re-trigger scroll reveal in case elements were hidden during preloader
-                    window.dispatchEvent(new Event('scroll'));
-                }, 1000); 
-            }, 3500);
+                const preloader = document.getElementById('preloader');
+                if(preloader) preloader.remove();
+                window.dispatchEvent(new Event('scroll'));
+            }, 3200);
 
             // Mobile Menu Logic
             const btn = document.getElementById('mobile-menu-btn');
